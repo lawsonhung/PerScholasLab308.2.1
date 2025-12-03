@@ -13,6 +13,8 @@ const plantSize = 0.8;
 let plantCount = 20;
 // The plants double in number every week.
 
+let plantSpace = plantCount * plantSize;
+
 // Predict the plant growth after a specific number of weeks.
 // Implement control flow to make decisions on whether the plants should be:
 // Pruned, to stop them from exceeding the capacity of the garden.
@@ -25,33 +27,20 @@ let plantCount = 20;
 // Within your submission, include the results for 1, 2, and 3 weeks of growth as inputs.
 let weekNum = 10;
 
-// switch (weekNum) {
-//   case 1:
-//     plantCount *= 2;
-//     console.log(plantCount);
-//     break;
-//   case 2:
-//     plantCount *= 2;
-//     plantCount *= 2;
-//     console.log(plantCount);
-//     break;
-//   case 3:
-//     plantCount *= 2;
-//     plantCount *= 2;
-//     plantCount *= 2;
-//     console.log(plantCount);
-//     break;
-//   default:
-//     throw 'Error: Only accounting for weeks 1 2 and 3';
-// }
+let currentCapacity = plantSpace / area * 100;
 
 for (let currentWeekCount = 0; currentWeekCount < weekNum; currentWeekCount++) {
   plantCount *= 2;
-  console.log(`In week ${currentWeekCount + 1}, there are ${plantCount} plants`);
-}
+  plantSpace = plantCount * plantSize;
+  currentCapacity = plantSpace / area * 100;
+  console.log(`In week ${currentWeekCount + 1}, there are ${plantCount} plants taking up ${currentCapacity}% of the space`);
 
-const currentCapacity = (plantCount * plantSize) / area;
-console.log(`The current capacity is at ${currentCapacity}`);
+  // Part 3
+
+  if (currentCapacity > 100) {
+    throw console.error(`\n🛑 There is not enough space in the ${area} size garden to hold the ${plantCount} plants taking up ${plantSpace} space`);
+  }
+}
 
 // Pruned, to stop them from exceeding the capacity of the garden.
 // This condition should be met if the plant count after the given number of weeks is greater than 80% of the maximum capacity of the garden.
@@ -71,9 +60,9 @@ if (currentCapacity > .8) {
   }
 
 // Part 2
-  
+
 //   The amount of additional space that would be required if the scientists were to start with 100 plants, and did not prune them for 10 weeks.
 // 20480 Plants after 10 weeks of no pruning
 // If the space remained circular, what would be the radius of this expanded garden?
-const expandedGardenRadius = Math.sqrt(plantCount * plantSize / PI);
+const expandedGardenRadius = Math.sqrt(plantSpace / PI);
 console.log(`After ${weekNum} weeks, ${plantCount} plants have grown. The radius needed for the expanded garden is ${expandedGardenRadius}`);
